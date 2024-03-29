@@ -46,11 +46,27 @@
       <option value="item4">Item 4</option>
       <option value="item5">Item 5</option>
   </select>
+
+  <button class="btn" onclick="closePhonePeApp()">Close PhonePe App</button>
   
   <script>
     function redirectTo(url) {
       window.location.href = url;
     }
+
+     function closePhonePeApp() {
+      var sdk;
+      PhonePe.PhonePe.build(PhonePe.Constants.Species.web)
+          .then(ppSdk => {
+               sdk = ppSdk;
+              console.log('PhonePe SDK initialized successfully', sdk);
+              sdk.closeApp();
+          })
+          .catch(error => {
+              console.error('Error initializing PhonePe SDK:', error);
+          });
+    }
   </script>
+  <script src="https://dmi-bucket-ip.s3.ap-south-1.amazonaws.com/phonepesdk.js"></script>
 </body>
 </html>
