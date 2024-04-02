@@ -47,24 +47,34 @@
       <option value="item5">Item 5</option>
   </select>
 
-  <button class="btn" onclick="closePhonePeApp()">Close PhonePe App</button>
-  
+  <button class="btn" onclick="openCamera()">Open Camera</button>
+  <script>
+    var sdk;
+      PhonePe.PhonePe.build(PhonePe.Constants.Species.web)
+          .then(ppSdk => {
+              sdk = ppSdk;
+              console.log('PhonePe SDK initialized successfully', sdk);
+          })
+          .catch(error => {
+              console.error('Error initializing PhonePe SDK:', error);
+          });
+  </script>
   <script>
     function redirectTo(url) {
       window.location.href = url;
     }
 
-     function closePhonePeApp() {
-      var sdk;
-      PhonePe.PhonePe.build(PhonePe.Constants.Species.web)
-          .then(ppSdk => {
-               sdk = ppSdk;
-              console.log('PhonePe SDK initialized successfully', sdk);
-              sdk.closeApp();
-          })
-          .catch(error => {
-              console.error('Error initializing PhonePe SDK:', error);
-          });
+    function openCamera() {
+      sdk.startCamera().then((uri) => {
+    		console.log("URI" + uri)
+        sdk.readFile(uri, 0, 100).then((readFileRes) => {
+          console.log("readFile result" + readFileRes)
+        }).catch((err) => {
+          console.log("readFileRes error " + err)
+        })
+    	}).catch((err) => {
+    		console.log("startCamera error " + err)
+    	})
     }
   </script>
   <script src="bundle.js"></script>
