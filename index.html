@@ -48,16 +48,17 @@
   </select>
 
   <button class="btn" onclick="openCamera()">Open Camera</button>
+  <script src="bundle.js"></script>
   <script>
     var sdk;
-      PhonePe.PhonePe.build(PhonePe.Constants.Species.web)
-          .then(ppSdk => {
-              sdk = ppSdk;
-              console.log('PhonePe SDK initialized successfully', sdk);
-          })
-          .catch(error => {
-              console.error('Error initializing PhonePe SDK:', error);
-          });
+    PhonePe.PhonePe.build(PhonePe.Constants.Species.web)
+        .then(ppSdk => {
+            sdk = ppSdk;
+            console.log('PhonePe SDK initialized successfully', sdk);
+        })
+        .catch(error => {
+            console.error('Error initializing PhonePe SDK:', error);
+        });
   </script>
   <script>
     function redirectTo(url) {
@@ -77,6 +78,5 @@
     	})
     }
   </script>
-  <script src="bundle.js"></script>
 </body>
 </html>
