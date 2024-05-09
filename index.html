@@ -55,7 +55,7 @@
 
   <!-- Camera Button -->
 <input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
-<button onclick="document.getElementById('cameraInput').click()">Take Photo - HTML - 1</button>
+<button onclick="document.getElementById('cameraInput').click()">Take Photo - HTML - 2</button>
 
 <!-- Gallery Button -->
 <input type="file" accept="image/*" id="galleryInput" style="display: none;">
@@ -67,10 +67,10 @@
     PhonePe.PhonePe.build(PhonePe.Constants.Species.web)
         .then(ppSdk => {
             sdk = ppSdk;
-            console.log('PhonePe SDK initialized successfully', sdk);
+            alert('PhonePe SDK initialized successfully');
         })
         .catch(error => {
-            console.error('Error initializing PhonePe SDK:', error);
+            alert(error);
         });
   </script>
   <script>
@@ -80,20 +80,20 @@
 
     function openCamera() {
       sdk.startCamera().then((uri) => {
-    		console.log("URI" + uri)
+    		alert(uri)
         sdk.readFile(uri, 0, 100).then((readFileRes) => {
-          console.log("readFile result" + readFileRes)
+          alert(readFileRes)
         }).catch((err) => {
-          console.log("readFileRes error " + err)
+          alert(err)
         })
     	}).catch((err) => {
-    		console.log("startCamera error " + err)
+    		alert(err)
     	})
       
     }
 
     function openFileSelect() {
-      sdk.selectFile("image", true).then((data) => {
+      sdk.selectFile('image', true).then((data) => {
     		alert(data)
     	}).catch((err) => {
     		alert(err)
