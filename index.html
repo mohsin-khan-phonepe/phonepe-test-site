@@ -53,7 +53,7 @@
 
   <!-- Camera Button -->
 <input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
-<button onclick="document.getElementById('cameraInput').click()">Take Photo - HTML</button>
+<button onclick="document.getElementById('cameraInput').click()">Take Photo - HTML - 1</button>
 
 <!-- Gallery Button -->
 <!-- <input type="file" accept="image/*" id="galleryInput" style="display: none;">
@@ -91,7 +91,7 @@
     }
 
     function openFileSelect() {
-      sdk.selectFile('document', 'allowMultiple').then((data) => {
+      sdk.selectFile("document", true).then((data) => {
     		alert(data)
     	}).catch((err) => {
     		alert(err)
