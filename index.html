@@ -51,13 +51,15 @@
 
   <button class="btn" onclick="openFileSelect()">Open File Select</button>
 
+   <button class="btn" onclick="requestCameraAccess()">Request Camera Access</button>
+
   <!-- Camera Button -->
 <input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
 <button onclick="document.getElementById('cameraInput').click()">Take Photo - HTML - 1</button>
 
 <!-- Gallery Button -->
-<!-- <input type="file" accept="image/*" id="galleryInput" style="display: none;">
-<button onclick="document.getElementById('galleryInput').click()">Choose from Gallery  - HTML</button> -->
+<input type="file" accept="image/*" id="galleryInput" style="display: none;">
+<button onclick="document.getElementById('galleryInput').click()">Choose from Gallery  - HTML</button>
   
   <script src="bundle.js"></script>
   <script>
@@ -91,7 +93,15 @@
     }
 
     function openFileSelect() {
-      sdk.selectFile("document", true).then((data) => {
+      sdk.selectFile("image", true).then((data) => {
+    		alert(data)
+    	}).catch((err) => {
+    		alert(err)
+    	})
+    }
+
+    function requestCameraAccess() {
+      sdk.seekPermission(PhonePe.Constants.Permission.CAMERA]).then((data) => {
     		alert(data)
     	}).catch((err) => {
     		alert(err)
