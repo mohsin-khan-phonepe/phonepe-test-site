@@ -48,6 +48,15 @@
   </select>
 
   <button class="btn" onclick="openCamera()">Open Camera</button>
+
+  <!-- Camera Button -->
+<input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
+<button onclick="document.getElementById('cameraInput').click()">Take Photo - HTML</button>
+
+<!-- Gallery Button -->
+<input type="file" accept="image/*" id="galleryInput" style="display: none;">
+<button onclick="document.getElementById('galleryInput').click()">Choose from Gallery  - HTML</button>
+  
   <script src="bundle.js"></script>
   <script>
     var sdk;
