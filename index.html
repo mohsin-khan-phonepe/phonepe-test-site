@@ -49,6 +49,8 @@
 
   <button class="btn" onclick="openCamera()">Open Camera</button>
 
+  <button class="btn" onclick="openFileSelect()">Open File Select</button>
+
   <!-- Camera Button -->
 <input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
 <button onclick="document.getElementById('cameraInput').click()">Take Photo - HTML</button>
@@ -84,6 +86,15 @@
         })
     	}).catch((err) => {
     		console.log("startCamera error " + err)
+    	})
+      
+    }
+
+    function openFileSelect() {
+      sdk.selectFile('image', 'allowMultiple').then((data) => {
+    		alert(data)
+    	}).catch((err) => {
+    		console.alert("fileselect error")
     	})
     }
   </script>
