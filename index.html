@@ -101,7 +101,7 @@
     }
 
     function requestCameraAccess() {
-      sdk.seekPermission(PhonePe.Constants.Permission.CAMERA]).then((data) => {
+      sdk.seekPermission([PhonePe.Constants.Permission.CAMERA]).then((data) => {
     		alert(data)
     	}).catch((err) => {
     		alert(err)
