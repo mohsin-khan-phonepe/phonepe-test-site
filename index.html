@@ -93,7 +93,7 @@
     }
 
     function openFileSelect() {
-      sdk.selectFile('image', true).then((data) => {
+      sdk.selectFile('document', false).then((data) => {
     		alert(data)
     	}).catch((err) => {
     		alert(err)
