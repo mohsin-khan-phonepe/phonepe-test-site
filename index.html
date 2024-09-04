@@ -173,6 +173,8 @@
 
       sdk.readFile(uri, offset, currentChunkSize)
         .then((fileData) => {
+          console.log(fileData);
+          console.log("readfile success");
           base64DataArray.push(fileData.base64Data);
           offset += currentChunkSize;
           readNextChunk();
@@ -203,7 +205,7 @@ function base64ToBlob(base64) {
     byteArrays.push(byteArray);
   }
 
-  return new Blob(byteArrays, { type: 'image/jpeg' }); // Adjust MIME type as needed
+  return new Blob(byteArrays); // Adjust MIME type as needed
 }
 
 function handleCameraData(cameraData) {
