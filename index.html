@@ -87,17 +87,11 @@
     }
 
     function openCamera() {
-      sdk.startCamera().then((uri) => {
-    		alert(uri)
-        sdk.readFile(uri, 0, 100).then((readFileRes) => {
-          alert(readFileRes)
-        }).catch((err) => {
-          alert(err)
-        })
+      sdk.startCamera().then((cameraData) => {
+    		handleCameraData(cameraData);
     	}).catch((err) => {
     		alert(err)
     	})
-      
     }
 
     function openFileSelect() {
@@ -167,6 +161,74 @@
 
             }, 5000);
       }
+
+    function readFileInChunks(uri, size, callback) {
+  const CHUNK_SIZE = 500000;
+  let offset = 0;
+  let base64DataArray = [];
+
+  function readNextChunk() {
+    if (offset < size) {
+      const currentChunkSize = Math.min(CHUNK_SIZE, size - offset);
+
+      sdk.readFile(uri, offset, currentChunkSize)
+        .then((fileData) => {
+          base64DataArray.push(fileData.base64Data);
+          offset += currentChunkSize;
+          readNextChunk();
+        })
+        .catch((error) => {
+          console.error('Error reading file:', error);
+        });
+    } else {
+      const blob = base64ToBlob(base64DataArray.join(''));
+      callback(blob);
+    }
+  }
+
+  readNextChunk();
+}
+
+function base64ToBlob(base64) {
+  const byteCharacters = atob(base64);
+  const byteArrays = [];
+
+  for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+    const slice = byteCharacters.slice(offset, offset + 512);
+    const byteNumbers = new Array(slice.length);
+    for (let i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    byteArrays.push(byteArray);
+  }
+
+  return new Blob(byteArrays, { type: 'image/jpeg' }); // Adjust MIME type as needed
+}
+
+function handleCameraData(cameraData) {
+  // Check if cameraData is a string and convert it to an object if necessary
+  if (typeof cameraData === 'string') {
+    try {
+      cameraData = JSON.parse(cameraData);
+    } catch (error) {
+      console.error('Invalid JSON string:', error);
+      return;
+    }
+  }
+  console.log(cameraData)
+  // Ensure cameraData has the required properties
+  if (cameraData && cameraData.uri && cameraData.size) {
+    readFileInChunks(cameraData.uri, cameraData.size, (blob) => {
+      console.log("Read file in chunks");
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(blob);
+      document.body.appendChild(img);
+    });
+  } else {
+    console.error('Invalid cameraData object');
+  }
+}
   </script>
 </body>
 </html>
