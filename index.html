@@ -162,10 +162,21 @@
             }, 5000);
       }
 
-    function readFileInChunks(uri, size, callback) {
+function base64ToUint8Array(base64) {
+  const binaryString = atob(base64);
+  const len = binaryString.length;
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  return bytes;
+}
+
+// Function to read file in chunks
+function readFileInChunks(uri, size, callback) {
   const CHUNK_SIZE = 500000;
   let offset = 0;
-  let base64DataArray = [];
+  let blobParts = [];
 
   function readNextChunk() {
     if (offset < size) {
@@ -173,9 +184,9 @@
 
       sdk.readFile(uri, offset, currentChunkSize)
         .then((fileData) => {
-          console.log(fileData);
-          console.log("readfile success");
-          base64DataArray.push(fileData.base64Data);
+          const decodedChunk = base64ToUint8Array(fileData.base64Data); // Decode base64 to Uint8Array
+          blobParts.push(decodedChunk); // Add the decoded chunk to the blob parts array
+          
           offset += currentChunkSize;
           readNextChunk();
         })
@@ -183,29 +194,12 @@
           console.error('Error reading file:', error);
         });
     } else {
-      const blob = base64ToBlob(base64DataArray.join(''));
+      const blob = new Blob(blobParts); // Create the final Blob
       callback(blob);
     }
   }
 
   readNextChunk();
-}
-
-function base64ToBlob(base64) {
-  const byteCharacters = atob(base64);
-  const byteArrays = [];
-
-  for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-    const slice = byteCharacters.slice(offset, offset + 512);
-    const byteNumbers = new Array(slice.length);
-    for (let i = 0; i < slice.length; i++) {
-      byteNumbers[i] = slice.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-    byteArrays.push(byteArray);
-  }
-
-  return new Blob(byteArrays); // Adjust MIME type as needed
 }
 
 function handleCameraData(cameraData) {
