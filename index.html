@@ -66,9 +66,6 @@
 
   <button class="btn" onclick="getLocation()">Get Location Bridge</button>
 
-  <input type="text" id="urlInput" placeholder="Enter URL">
-  <button onclick="navigate()">Go to Entered URL</button>
-
   <!-- Camera Button -->
 <input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
 <button onclick="document.getElementById('cameraInput').click()">Take Photo - HTML - 2</button>
@@ -76,6 +73,9 @@
 <!-- Gallery Button -->
 <input type="file" accept="image/*" id="galleryInput" style="display: none;">
 <button onclick="document.getElementById('galleryInput').click()">Choose from Gallery  - HTML</button>
+
+  <input type="text" id="urlInput" placeholder="Enter URL">
+  <button onclick="navigate()">Go to Entered URL</button>
   
   <script src="bundle.js"></script>
   <script>
