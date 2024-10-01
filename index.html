@@ -79,7 +79,7 @@
 
   <button id="downloadBtn">Download Image</button>
 
-   <button id="downloadBtn1">Download Image Direct URL</button>
+   <button id="downloadBtn1">Download Image Direct URL - 1</button>
   
   <script src="bundle.js"></script>
   <script>
@@ -299,7 +299,7 @@ function handleCameraData(cameraData) {
         // Create a temporary anchor element
                 const anchor = document.createElement('a');
                 anchor.href = imageUrl;
-                anchor.download = 'downloaded-image'; // Filename for the downloaded image
+                anchor.download = 'downloaded-image.png'; // Filename for the downloaded image
 
                 // Append the anchor to the body
                 document.body.appendChild(anchor);
