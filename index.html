@@ -81,6 +81,8 @@
 
    <button id="downloadBtn1">Download Image Direct URL - 1</button>
   
+  <button id="errorHandling">Check Webview Error</button>
+  
   <script src="bundle.js"></script>
   <script>
     var sdk;
@@ -310,6 +312,11 @@ function handleCameraData(cameraData) {
                 // Remove the anchor from the document
                 document.body.removeChild(anchor);       
         });
-    </script>
+    </script> 
+  <script>
+     document.getElementById('errorHandling').addEventListener('click', function() {
+         window.open('https://example.com', '_blank');
+    });
+  </script>
 </body>
 </html>
