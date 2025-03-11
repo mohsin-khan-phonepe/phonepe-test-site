@@ -40,6 +40,7 @@
   <button class="btn" onclick="redirectTo('https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/')">Open Personal Website</button>
   <button onclick="window.open('https://www.google.com/', '_blank')">New tab</button>
   <button onclick="openAndCloseWindow()">New window</button>
+  <button onclick="closeWindow()">Close window</button>
   <button onclick="openAndCloseWindow1()">New window after timeout</button>
   <button onclick="openAndCloseWindow2()">New window after timeout without size</button>
   <button onclick="redirectTo('https://webview-poc-app.netlify.app/')">Rishi Website</button>
@@ -159,6 +160,10 @@
                 }
             }, 5000);
         }
+
+    function closeWindow() {
+      window.close();
+    }
 
     function openAndCloseWindow1() {
       // Set a timeout to close the window after 5 seconds (5000 milliseconds)
