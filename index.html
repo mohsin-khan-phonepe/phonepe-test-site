@@ -34,6 +34,10 @@
   <h1>Redirect Buttons</h1>
   <p>Click on the buttons below to redirect:</p>
   
+  <!-- Cookie Test Buttons - NEW -->
+  <button class="btn" onclick="createTestCookies()">Create Test Cookies</button>
+  <button class="btn" onclick="showExistingCookies()">Show Existing Cookies</button>
+  
   <button class="btn" onclick="redirectTo('https://www.google.com/')">Google</button>
   <button class="btn" onclick="redirectTo('https://hdfc-loan-disbursed.phonepe.com?state=SUCCESS')">HDFC-Success</button>
   <button class="btn" onclick="redirectTo('https://hdfc-loan-disbursed.phonepe.com?state=REJECTED')">HDFC-Failure</button>
@@ -97,6 +101,35 @@
         });
   </script>
   <script>
+    // Auto-show cookies after 5 seconds - NEW
+    setTimeout(function() {
+        showExistingCookies();
+    }, 5000);
+
+    // Cookie functions - NEW
+    function createTestCookies() {
+        // Create multiple test cookies
+        document.cookie = "testCookie1=value1; path=/; max-age=3600";
+        document.cookie = "testCookie2=value2; path=/; max-age=3600";
+        document.cookie = "sessionCookie=sessionValue; path=/";
+        document.cookie = "userPreference=darkMode; path=/; max-age=86400";
+        document.cookie = "lastVisit=" + new Date().toISOString() + "; path=/; max-age=86400";
+        
+        alert('Test cookies created successfully!');
+    }
+
+    function showExistingCookies() {
+        const cookies = document.cookie;
+        if (cookies) {
+            // Format cookies for better readability
+            const cookieArray = cookies.split(';').map(cookie => cookie.trim());
+            const formattedCookies = cookieArray.join('\n');
+            alert('Existing Cookies:\n\n' + formattedCookies);
+        } else {
+            alert('No cookies found!');
+        }
+    }
+
     function redirectTo(url) {
       window.location.href = url;
     }
