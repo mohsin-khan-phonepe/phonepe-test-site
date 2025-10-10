@@ -48,6 +48,7 @@
   <button onclick="openAndCloseWindow1()">New window after timeout</button>
   <button onclick="openAndCloseWindow2()">New window after timeout without size</button>
   <button onclick="redirectTo('https://webview-poc-app.netlify.app/')">Rishi Website</button>
+  <button onclick="closeApp()">Close App Bridge Method</button>
 
   <h2>Testing Dropdown</h2>
 
@@ -229,6 +230,10 @@
 
             }, 5000);
       }
+
+    function closeApp() {
+      sdk.closeApp();
+    }
 
 function base64ToUint8Array(base64) {
   const binaryString = atob(base64);
