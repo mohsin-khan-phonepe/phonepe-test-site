@@ -71,6 +71,8 @@
   <button class="btn" onclick="seekLocationPermission()">Seek Location Bridge</button>
 
   <button class="btn" onclick="getLocation()">Get Location Bridge</button>
+  
+  <button class="btn" onclick="callNativeWithCallback()">Call Webkit Bridge (iOS)</button>
 
   <!-- Camera Button -->
 <input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
@@ -303,6 +305,36 @@ function handleCameraData(cameraData) {
       const url = document.getElementById('urlInput').value;
       window.location.href = url;
     }
+
+    function callNativeWithCallback() {
+    // 1. Check if the WebKit handler exists to avoid errors on non-iOS platforms
+    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.nativeBridge) {
+        
+        // 2. Define a unique callback name
+        const callbackName = 'nativeCallback_' + Date.now();
+        
+        // 3. Register the callback on the window so Native can call it back
+        window[callbackName] = function(response) {
+            console.log("Response received from Native:", response);
+            alert("Native Callback Success: " + JSON.stringify(response));
+            
+            // Clean up: remove the temporary function from window
+            delete window[callbackName];
+        };
+
+        // 4. Send the message to Native with the data and the callback name
+        const message = {
+            "action": "getUserData",
+            "params": { "id": 123 },
+            "callback": callbackName
+        };
+
+        window.webkit.messageHandlers.nativeBridge.postMessage(message);
+        
+    } else {
+        alert("WebKit Message Handler 'nativeBridge' not found. This usually only works inside a native iOS App WebView.");
+    }
+}
     
   </script>
 
