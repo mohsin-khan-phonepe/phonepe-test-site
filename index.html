@@ -28,6 +28,33 @@
   .btn:hover {
     background-color: #0056b3;
   }
+  /* SETTINGS TEST styles */
+  .settings-section {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: left;
+  }
+  .settings-section h3 {
+    color: #5f259f;
+    margin-top: 0;
+    text-align: center;
+  }
+  .status-box {
+    padding: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    font-family: monospace;
+    margin: 8px 0;
+    word-break: break-all;
+  }
+  .small-zoom-text {
+    font-size: 8px;
+    line-height: 1.2;
+    color: #444;
+  }
 </style>
 </head>
 <body>
@@ -90,6 +117,99 @@
    <button id="downloadBtn1">Download Image Direct URL - 1</button>
   
   <button id="errorHandling">Check Webview Error</button>
+
+  <!-- ===================== SETTINGS TEST SECTIONS ===================== -->
+  <hr style="margin: 30px 0;">
+  <h2 style="color: #5f259f;">iOS Settings Tests</h2>
+
+  <!-- SETTINGS TEST 1: allowsInlineMediaPlayback -->
+  <div class="settings-section">
+    <h3>1. allowsInlineMediaPlayback</h3>
+    <p><b>true</b> → video plays inline. <b>false</b> → video opens fullscreen player.</p>
+    <video src="https://www.w3schools.com/html/mov_bbb.mp4" playsinline controls width="100%"></video>
+  </div>
+
+  <!-- SETTINGS TEST 2: mediaTypesRequiringUserActionForPlayback -->
+  <div class="settings-section">
+    <h3>2. mediaTypesRequiringUserActionForPlayback</h3>
+    <p><b>"all"</b> → neither auto-plays. <b>"none"</b> → both auto-play.</p>
+    <p><b>Video (autoplay attempt):</b></p>
+    <video id="autoTestVideo" src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay playsinline muted width="100%"></video>
+    <p><b>Audio (autoplay attempt):</b></p>
+    <audio id="autoTestAudio" src="https://www.w3schools.com/html/horse.mp3" autoplay controls></audio>
+    <div class="status-box" id="autoplayStatus">Checking autoplay in 1.5s...</div>
+  </div>
+
+  <!-- SETTINGS TEST 3: dataStoragePolicy -->
+  <div class="settings-section">
+    <h3>3. dataStoragePolicy</h3>
+    <p><b>nonPersistent</b> → data lost after webview destroyed. <b>defaultPersistent</b> → data survives.</p>
+    <button class="btn" onclick="writeTestStorage()">Write to localStorage &amp; Cookie</button>
+    <button class="btn" onclick="readTestStorage()">Read Storage</button>
+    <div class="status-box" id="storageTestStatus">Click "Write" → close webview → reopen → click "Read".</div>
+  </div>
+
+  <!-- SETTINGS TEST 4: allowsPictureInPictureMediaPlayback -->
+  <div class="settings-section">
+    <h3>4. allowsPictureInPictureMediaPlayback</h3>
+    <p><b>false</b> → PiP fails. <b>true</b> → PiP works.</p>
+    <video id="pipTestVideo" src="https://www.w3schools.com/html/mov_bbb.mp4" playsinline controls width="100%"></video>
+    <br>
+    <button class="btn" onclick="tryTestPiP()">Try PiP</button>
+    <div class="status-box" id="pipTestStatus">—</div>
+  </div>
+
+  <!-- SETTINGS TEST 5: dataDetectorTypes -->
+  <div class="settings-section">
+    <h3>5. dataDetectorTypes</h3>
+    <p>With <b>["phoneNumber", "link"]</b> only phone &amp; URL below should be tappable (auto-linked by iOS).</p>
+    <p>📞 Phone (should link): +1-800-555-0199</p>
+    <p>🔗 URL (should link): https://example.com</p>
+    <p>📍 Address (should NOT link): 1 Infinite Loop, Cupertino, CA 95014</p>
+    <p>📅 Date (should NOT link): March 15, 2026 at 3:00 PM</p>
+    <p>✈️ Flight (should NOT link): AA 100</p>
+  </div>
+
+  <!-- SETTINGS TEST 6: javaScriptCanOpenWindowsAutomatically -->
+  <div class="settings-section">
+    <h3>6. javaScriptCanOpenWindowsAutomatically</h3>
+    <p><b>true</b> → both user-gesture &amp; auto window.open work. <b>false</b> → auto is blocked.</p>
+    <button class="btn" onclick="window.open('https://example.com', '_blank')">window.open (User Gesture)</button>
+    <button class="btn" onclick="triggerAutoWindowOpen()">Auto window.open (2s delay, no gesture)</button>
+    <div class="status-box" id="windowOpenTestStatus">—</div>
+  </div>
+
+  <!-- SETTINGS TEST 7: allowsContentJavaScript -->
+  <div class="settings-section">
+    <h3>7. allowsContentJavaScript</h3>
+    <p><b>true</b> → "JS is running!" shown. <b>false</b> → "JavaScript is DISABLED" shown.</p>
+    <div class="status-box" id="jsTestResult">
+      <noscript>JavaScript is DISABLED ❌</noscript>
+    </div>
+  </div>
+
+  <!-- SETTINGS TEST 8: allowsBackForwardNavigationGestures -->
+  <div class="settings-section">
+    <h3>8. allowsBackForwardNavigationGestures</h3>
+    <p><b>true</b> → swipe from left edge goes back. <b>false</b> → swipe does nothing.</p>
+    <p>Click a link below, then swipe from the left edge to come back:</p>
+    <a class="btn" href="https://example.com">example.com</a>
+    <a class="btn" href="https://www.w3.org">w3.org</a>
+    <a class="btn" href="https://httpbin.org/html">httpbin</a>
+  </div>
+
+  <!-- SETTINGS TEST 9: isZoomDisabled -->
+  <div class="settings-section">
+    <h3>9. isZoomDisabled</h3>
+    <p><b>false</b> → pinch-to-zoom works. <b>true</b> → pinch-to-zoom disabled.</p>
+    <div class="small-zoom-text">
+      This is very small text (8px). Try pinch-to-zoom to enlarge it.
+      If isZoomDisabled is true, pinch gestures will have no effect because the SDK injects a viewport meta tag with user-scalable=no.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </div>
+  </div>
+  <!-- ===================== END SETTINGS TEST SECTIONS ===================== -->
   
   <script src="bundle.js"></script>
   <script>
@@ -335,6 +455,65 @@ function handleCameraData(cameraData) {
         alert("WebKit Message Handler 'nativeBridge' not found. This usually only works inside a native iOS App WebView.");
     }
 }
+
+    // --- SETTINGS TEST scripts ---
+
+    // Test 2: autoplay check
+    setTimeout(function() {
+      var v = document.getElementById('autoTestVideo');
+      var a = document.getElementById('autoTestAudio');
+      var s = document.getElementById('autoplayStatus');
+      if (v && a && s) {
+        var vPlaying = v && !v.paused;
+        var aPlaying = a && !a.paused;
+        s.textContent = 'Video autoplay: ' + (vPlaying ? 'YES ✅' : 'NO ❌') + ' | Audio autoplay: ' + (aPlaying ? 'YES ✅' : 'NO ❌');
+      }
+    }, 1500);
+
+    // Test 3: storage
+    function writeTestStorage() {
+      try {
+        localStorage.setItem('ppwv_settings_test', 'hello_' + Date.now());
+        document.cookie = 'ppwv_settings_cookie=test_' + Date.now() + '; path=/';
+        document.getElementById('storageTestStatus').textContent = 'Written! Now destroy & re-create webview, then click Read.';
+      } catch(e) {
+        document.getElementById('storageTestStatus').textContent = 'Error: ' + e.message;
+      }
+    }
+    function readTestStorage() {
+      var ls = localStorage.getItem('ppwv_settings_test') || '(empty)';
+      var ck = document.cookie || '(empty)';
+      document.getElementById('storageTestStatus').textContent = 'localStorage: ' + ls + ' | cookie: ' + ck;
+    }
+
+    // Test 4: PiP
+    async function tryTestPiP() {
+      try {
+        var v = document.getElementById('pipTestVideo');
+        await v.play();
+        await v.requestPictureInPicture();
+        document.getElementById('pipTestStatus').textContent = 'PiP ACTIVE ✅';
+      } catch(e) {
+        document.getElementById('pipTestStatus').textContent = 'PiP FAILED ❌: ' + e.message;
+      }
+    }
+
+    // Test 6: auto window.open
+    function triggerAutoWindowOpen() {
+      document.getElementById('windowOpenTestStatus').textContent = 'Will try window.open in 2s (no user gesture)...';
+      setTimeout(function() {
+        var w = window.open('https://example.com', '_blank');
+        document.getElementById('windowOpenTestStatus').textContent = w ? 'Auto window.open: ALLOWED ✅' : 'Auto window.open: BLOCKED ❌';
+      }, 2000);
+    }
+
+    // Test 7: JS execution check
+    (function() {
+      var el = document.getElementById('jsTestResult');
+      if (el) el.textContent = 'JS is running! ✅';
+    })();
+
+    // --- END SETTINGS TEST scripts ---
     
   </script>
 
