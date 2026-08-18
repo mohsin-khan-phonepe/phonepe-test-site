@@ -28,7 +28,6 @@
   .btn:hover {
     background-color: #0056b3;
   }
-  /* SETTINGS TEST styles */
   .settings-section {
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -61,7 +60,6 @@
   <h1>Redirect Buttons</h1>
   <p>Click on the buttons below to redirect:</p>
   
-  <!-- Cookie Test Buttons - NEW -->
   <button class="btn" onclick="createTestCookies()">Create Test Cookies</button>
   <button class="btn" onclick="showExistingCookies()">Show Existing Cookies</button>
   
@@ -89,52 +87,44 @@
   </select>
 
   <button class="btn" onclick="openCamera()">Open Camera</button>
-
   <button class="btn" onclick="openFileSelect()">Open File Select</button>
-
-   <button class="btn" onclick="requestCameraAccess()">Request Camera Access</button>
-
+  <button class="btn" onclick="requestCameraAccess()">Request Camera Access</button>
   <button class="btn" onclick="requestAppDetails()">Request App Details</button>
-
   <button class="btn" onclick="seekLocationPermission()">Seek Location Bridge</button>
-
   <button class="btn" onclick="getLocation()">Get Location Bridge</button>
-  
   <button class="btn" onclick="callNativeWithCallback()">Call Webkit Bridge (iOS)</button>
 
   <!-- Network Internal Bridge Test -->
-  <button class="btn" style="background-color: #5f259f;" onclick="callLAMFDashboardAPI()">LAMF Dashboard API</button>
-  <div class="status-box" id="lamfApiStatus" style="max-width: 600px; margin: 8px auto;">Click "LAMF Dashboard API" to test genericProcessRequest bridge.</div>
+  <button class="btn" style="background-color: #5f259f;" onclick="callLAMFDashboardAPI()">LAMF Dashboard API (Internal)</button>
+  <div class="status-box" id="lamfApiStatus" style="max-width: 600px; margin: 8px auto;">Click to test genericProcessRequest bridge.</div>
 
-  <!-- Camera Button -->
-<input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
-<button onclick="document.getElementById('cameraInput').click()">Take Photo - HTML - 2</button>
+  <!-- Network External Bridge Test -->
+  <button class="btn" style="background-color: #28a745;" onclick="callLAMFDashboardAPIExternal()">LAMF Dashboard API (External)</button>
+  <div class="status-box" id="lamfExternalApiStatus" style="max-width: 600px; margin: 8px auto;">Click to test processRequest bridge (requires networkSupportMeta config in chimera).</div>
 
-<!-- Gallery Button -->
-<input type="file" accept="image/*" id="galleryInput" style="display: none;">
-<button onclick="document.getElementById('galleryInput').click()">Choose from Gallery  - HTML</button>
+  <input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
+  <button onclick="document.getElementById('cameraInput').click()">Take Photo - HTML - 2</button>
+
+  <input type="file" accept="image/*" id="galleryInput" style="display: none;">
+  <button onclick="document.getElementById('galleryInput').click()">Choose from Gallery  - HTML</button>
 
   <input type="text" id="urlInput" placeholder="Enter URL">
   <button onclick="navigate()">Go to Entered URL</button>
 
   <button id="downloadBtn">Download Image</button>
-
-   <button id="downloadBtn1">Download Image Direct URL - 1</button>
-  
+  <button id="downloadBtn1">Download Image Direct URL - 1</button>
   <button id="errorHandling">Check Webview Error</button>
 
   <!-- ===================== SETTINGS TEST SECTIONS ===================== -->
   <hr style="margin: 30px 0;">
   <h2 style="color: #5f259f;">iOS Settings Tests</h2>
 
-  <!-- SETTINGS TEST 1: allowsInlineMediaPlayback -->
   <div class="settings-section">
     <h3>1. allowsInlineMediaPlayback</h3>
     <p><b>true</b> → video plays inline. <b>false</b> → video opens fullscreen player.</p>
     <video src="https://www.w3schools.com/html/mov_bbb.mp4" playsinline controls width="100%"></video>
   </div>
 
-  <!-- SETTINGS TEST 2: mediaTypesRequiringUserActionForPlayback -->
   <div class="settings-section">
     <h3>2. mediaTypesRequiringUserActionForPlayback</h3>
     <p><b>"all"</b> → neither auto-plays. <b>"none"</b> → both auto-play.</p>
@@ -145,7 +135,6 @@
     <div class="status-box" id="autoplayStatus">Checking autoplay in 1.5s...</div>
   </div>
 
-  <!-- SETTINGS TEST 3: dataStoragePolicy -->
   <div class="settings-section">
     <h3>3. dataStoragePolicy</h3>
     <p><b>nonPersistent</b> → data lost after webview destroyed. <b>defaultPersistent</b> → data survives.</p>
@@ -154,7 +143,6 @@
     <div class="status-box" id="storageTestStatus">Click "Write" → close webview → reopen → click "Read".</div>
   </div>
 
-  <!-- SETTINGS TEST 4: allowsPictureInPictureMediaPlayback -->
   <div class="settings-section">
     <h3>4. allowsPictureInPictureMediaPlayback</h3>
     <p><b>false</b> → PiP fails. <b>true</b> → PiP works.</p>
@@ -164,7 +152,6 @@
     <div class="status-box" id="pipTestStatus">—</div>
   </div>
 
-  <!-- SETTINGS TEST 5: dataDetectorTypes -->
   <div class="settings-section">
     <h3>5. dataDetectorTypes</h3>
     <p>With <b>["phoneNumber", "link"]</b> only phone &amp; URL below should be tappable (auto-linked by iOS).</p>
@@ -175,7 +162,6 @@
     <p>✈️ Flight (should NOT link): AA 100</p>
   </div>
 
-  <!-- SETTINGS TEST 6: javaScriptCanOpenWindowsAutomatically -->
   <div class="settings-section">
     <h3>6. javaScriptCanOpenWindowsAutomatically</h3>
     <p><b>true</b> → both user-gesture &amp; auto window.open work. <b>false</b> → auto is blocked.</p>
@@ -184,7 +170,6 @@
     <div class="status-box" id="windowOpenTestStatus">—</div>
   </div>
 
-  <!-- SETTINGS TEST 7: allowsContentJavaScript -->
   <div class="settings-section">
     <h3>7. allowsContentJavaScript</h3>
     <p><b>true</b> → "JS is running!" shown. <b>false</b> → "JavaScript is DISABLED" shown.</p>
@@ -193,7 +178,6 @@
     </div>
   </div>
 
-  <!-- SETTINGS TEST 8: allowsBackForwardNavigationGestures -->
   <div class="settings-section">
     <h3>8. allowsBackForwardNavigationGestures</h3>
     <p><b>true</b> → swipe from left edge goes back. <b>false</b> → swipe does nothing.</p>
@@ -203,7 +187,6 @@
     <a class="btn" href="https://httpbin.org/html">httpbin</a>
   </div>
 
-  <!-- SETTINGS TEST 9: isZoomDisabled -->
   <div class="settings-section">
     <h3>9. isZoomDisabled</h3>
     <p><b>false</b> → pinch-to-zoom works. <b>true</b> → pinch-to-zoom disabled.</p>
@@ -216,7 +199,6 @@
   </div>
   <!-- ===================== END SETTINGS TEST SECTIONS ===================== -->
 
-  <!-- Hitesh Kumar Thakur iframe -->
   <hr style="margin: 30px 0;">
   <h2>Hitesh Kumar Thakur Website</h2>
   <iframe src="https://hiteshkumarthakur.github.io/" style="width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 5px;"></iframe>
@@ -234,27 +216,22 @@
         });
   </script>
   <script>
-    // Auto-show cookies after 5 seconds - NEW
     setTimeout(function() {
         showExistingCookies();
     }, 5000);
 
-    // Cookie functions - NEW
     function createTestCookies() {
-        // Create multiple test cookies
         document.cookie = "testCookie1=value1; path=/; max-age=3600";
         document.cookie = "testCookie2=value2; path=/; max-age=3600";
         document.cookie = "sessionCookie=sessionValue; path=/";
         document.cookie = "userPreference=darkMode; path=/; max-age=86400";
         document.cookie = "lastVisit=" + new Date().toISOString() + "; path=/; max-age=86400";
-        
         alert('Test cookies created successfully!');
     }
 
     function showExistingCookies() {
         const cookies = document.cookie;
         if (cookies) {
-            // Format cookies for better readability
             const cookieArray = cookies.split(';').map(cookie => cookie.trim());
             const formattedCookies = cookieArray.join('\n');
             alert('Existing Cookies:\n\n' + formattedCookies);
@@ -269,109 +246,90 @@
 
     function openCamera() {
       sdk.startCamera().then((cameraData) => {
-            handleCameraData(cameraData);
-        }).catch((err) => {
-            alert(err)
-        })
+        handleCameraData(cameraData);
+      }).catch((err) => {
+        alert(err)
+      })
     }
 
     function openFileSelect() {
       sdk.selectFile('document', false).then((data) => {
-            alert(data)
-        }).catch((err) => {
-            alert(err)
-        })
+        alert(data)
+      }).catch((err) => {
+        alert(err)
+      })
     }
 
     function requestCameraAccess() {
       sdk.seekPermission([PhonePe.Constants.Permission.CAMERA]).then((data) => {
-            alert(data)
-        }).catch((err) => {
-            alert(err)
-        })
+        alert(data)
+      }).catch((err) => {
+        alert(err)
+      })
     }
 
     function requestAppDetails() {
       sdk.getAppDetails().then((data) => {
-            alert(data)
-        }).catch((err) => {
-            alert(err)
-        })
+        alert(data)
+      }).catch((err) => {
+        alert(err)
+      })
     }
 
-     function seekLocationPermission() {
+    function seekLocationPermission() {
       sdk.seekPermission([PhonePe.Constants.Permission.LOCATION]).then((data) => {
-            alert(data)
-        }).catch((err) => {
-            alert(err)
-        })
+        alert(data)
+      }).catch((err) => {
+        alert(err)
+      })
     }
 
-     function getLocation() {
+    function getLocation() {
       sdk.getCurrentLocation().then((data) => {
-            alert(data)
-        }).catch((err) => {
-            alert(err)
-        })
+        alert(data)
+      }).catch((err) => {
+        alert(err)
+      })
     }
 
     function openAndCloseWindow() {
-            // Open a new window
-            const newWindow = window.open('https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/', '_blank', 'width=500,height=500');
-            
-            // Set a timeout to close the window after 5 seconds (5000 milliseconds)
-            setTimeout(() => {
-                if (newWindow) {
-                    newWindow.close();
-                }
-            }, 5000);
-        }
+      const newWindow = window.open('https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/', '_blank', 'width=500,height=500');
+      setTimeout(() => {
+        if (newWindow) { newWindow.close(); }
+      }, 5000);
+    }
 
     function closeWindow() {
       window.close();
     }
 
     function openAndCloseWindow1() {
-      // Set a timeout to close the window after 5 seconds (5000 milliseconds)
-            setTimeout(() => {
-               // Open a new window
-                const newWindow = window.open('https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/', '_blank', 'width=500,height=500');
-    
-                   // Set a timeout to close the window after 5 seconds (5000 milliseconds)
-                setTimeout(() => {
-                    if (newWindow) {
-                        newWindow.close();
-                    }
-                }, 5000);
-
-            }, 5000);
-      }
+      setTimeout(() => {
+        const newWindow = window.open('https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/', '_blank', 'width=500,height=500');
+        setTimeout(() => {
+          if (newWindow) { newWindow.close(); }
+        }, 5000);
+      }, 5000);
+    }
 
     function openAndCloseWindow2() {
-      // Set a timeout to close the window after 5 seconds (5000 milliseconds)
-            setTimeout(() => {
-               // Open a new window
-                const newWindow = window.open('https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/', '_blank');
-    
-                   // Set a timeout to close the window after 5 seconds (5000 milliseconds)
-                setTimeout(() => {
-                    if (newWindow) {
-                        newWindow.close();
-                    }
-                }, 5000);
-
-            }, 5000);
-      }
+      setTimeout(() => {
+        const newWindow = window.open('https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/', '_blank');
+        setTimeout(() => {
+          if (newWindow) { newWindow.close(); }
+        }, 5000);
+      }, 5000);
+    }
 
     function closeApp() {
       sdk.closeApp();
     }
 
-    // LAMF Dashboard API via Network Internal Bridge
+    // LAMF Dashboard API via Network Internal Bridge (genericProcessRequest)
     function callLAMFDashboardAPI() {
       var statusEl = document.getElementById('lamfApiStatus');
       var callbackId = 'lamf_dashboard_' + Date.now();
-      statusEl.textContent = 'Calling LAMF Dashboard API (callbackId: ' + callbackId + ')...';
+      statusEl.textContent = 'Calling LAMF Dashboard API - Internal (callbackId: ' + callbackId + ')...';
 
       var payload = {
         callbackId: callbackId,
@@ -381,7 +339,6 @@
         bodyJson: { entityType: 'PERSON' }
       };
 
-      // Store original callback if it exists
       var originalCallback = (window.PhonePe && window.PhonePe.MessagingHandler)
         ? window.PhonePe.MessagingHandler.callback
         : null;
@@ -393,12 +350,11 @@
         if (cbId === callbackId) {
           if (resolved === '1') {
             statusEl.textContent = 'Success: ' + response;
-            alert('LAMF Dashboard Success:\n' + response);
+            alert('LAMF Dashboard (Internal) Success:\n' + response);
           } else {
             statusEl.textContent = 'Failed: ' + error;
-            alert('LAMF Dashboard Failed:\n' + error);
+            alert('LAMF Dashboard (Internal) Failed:\n' + error);
           }
-          // Restore original callback
           if (originalCallback) {
             window.PhonePe.MessagingHandler.callback = originalCallback;
           }
@@ -410,69 +366,99 @@
       webkit.messageHandlers.genericProcessRequest.postMessage(payload);
     }
 
-function base64ToUint8Array(base64) {
-  const binaryString = atob(base64);
-  const len = binaryString.length;
-  const bytes = new Uint8Array(len);
-  for (let i = 0; i < len; i++) {
-    bytes[i] = binaryString.charCodeAt(i);
-  }
-  return bytes;
-}
+    // LAMF Dashboard API via Network External Bridge (processRequest)
+    function callLAMFDashboardAPIExternal() {
+      var statusEl = document.getElementById('lamfExternalApiStatus');
+      var apiType = 'LAMF_DASHBOARD';
+      statusEl.textContent = 'Calling LAMF Dashboard API - External (apiType: ' + apiType + ')...';
 
-// Function to read file in chunks
-function readFileInChunks(uri, size, callback) {
-  const CHUNK_SIZE = 500000;
-  let offset = 0;
-  let blobParts = [];
+      var payload = {
+        callbackId: apiType,
+        bodyJSON: { entityType: 'PERSON' }
+      };
 
-  function readNextChunk() {
-    if (offset < size) {
-      const currentChunkSize = Math.min(CHUNK_SIZE, size - offset);
+      var originalCallback = (window.PhonePe && window.PhonePe.MessagingHandler)
+        ? window.PhonePe.MessagingHandler.callback
+        : null;
 
-      sdk.readFile(uri, offset, currentChunkSize)
-        .then((fileData) => {
-          const decodedChunk = base64ToUint8Array(fileData.base64Data); // Decode base64 to Uint8Array
-          blobParts.push(decodedChunk); // Add the decoded chunk to the blob parts array
-          
-          offset += currentChunkSize;
-          readNextChunk();
-        })
-        .catch((error) => {
-          console.error('Error reading file:', error);
+      if (!window.PhonePe) window.PhonePe = {};
+      if (!window.PhonePe.MessagingHandler) window.PhonePe.MessagingHandler = {};
+
+      window.PhonePe.MessagingHandler.callback = function(cbId, resolved, response, error) {
+        if (cbId === apiType) {
+          if (resolved === '1') {
+            statusEl.textContent = 'Success: ' + response;
+            alert('LAMF Dashboard (External) Success:\n' + response);
+          } else {
+            statusEl.textContent = 'Failed: ' + error;
+            alert('LAMF Dashboard (External) Failed:\n' + error);
+          }
+          if (originalCallback) {
+            window.PhonePe.MessagingHandler.callback = originalCallback;
+          }
+        } else if (originalCallback) {
+          originalCallback(cbId, resolved, response, error);
+        }
+      };
+
+      webkit.messageHandlers.processRequest.postMessage(payload);
+    }
+
+    function base64ToUint8Array(base64) {
+      const binaryString = atob(base64);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      return bytes;
+    }
+
+    function readFileInChunks(uri, size, callback) {
+      const CHUNK_SIZE = 500000;
+      let offset = 0;
+      let blobParts = [];
+
+      function readNextChunk() {
+        if (offset < size) {
+          const currentChunkSize = Math.min(CHUNK_SIZE, size - offset);
+          sdk.readFile(uri, offset, currentChunkSize)
+            .then((fileData) => {
+              const decodedChunk = base64ToUint8Array(fileData.base64Data);
+              blobParts.push(decodedChunk);
+              offset += currentChunkSize;
+              readNextChunk();
+            })
+            .catch((error) => {
+              console.error('Error reading file:', error);
+            });
+        } else {
+          const blob = new Blob(blobParts);
+          callback(blob);
+        }
+      }
+      readNextChunk();
+    }
+
+    function handleCameraData(cameraData) {
+      if (typeof cameraData === 'string') {
+        try {
+          cameraData = JSON.parse(cameraData);
+        } catch (error) {
+          console.error('Invalid JSON string:', error);
+          return;
+        }
+      }
+      if (cameraData && cameraData.uri && cameraData.size) {
+        readFileInChunks(cameraData.uri, cameraData.size, (blob) => {
+          const img = document.createElement('img');
+          img.src = URL.createObjectURL(blob);
+          document.body.appendChild(img);
         });
-    } else {
-      const blob = new Blob(blobParts); // Create the final Blob
-      callback(blob);
+      } else {
+        console.error('Invalid cameraData object');
+      }
     }
-  }
-
-  readNextChunk();
-}
-
-function handleCameraData(cameraData) {
-  // Check if cameraData is a string and convert it to an object if necessary
-  if (typeof cameraData === 'string') {
-    try {
-      cameraData = JSON.parse(cameraData);
-    } catch (error) {
-      console.error('Invalid JSON string:', error);
-      return;
-    }
-  }
-  console.log(cameraData)
-  // Ensure cameraData has the required properties
-  if (cameraData && cameraData.uri && cameraData.size) {
-    readFileInChunks(cameraData.uri, cameraData.size, (blob) => {
-      console.log("Read file in chunks");
-      const img = document.createElement('img');
-      img.src = URL.createObjectURL(blob);
-      document.body.appendChild(img);
-    });
-  } else {
-    console.error('Invalid cameraData object');
-  }
-}
 
     function navigate() {
       const url = document.getElementById('urlInput').value;
@@ -480,38 +466,24 @@ function handleCameraData(cameraData) {
     }
 
     function callNativeWithCallback() {
-    // 1. Check if the WebKit handler exists to avoid errors on non-iOS platforms
-    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.nativeBridge) {
-        
-        // 2. Define a unique callback name
+      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.nativeBridge) {
         const callbackName = 'nativeCallback_' + Date.now();
-        
-        // 3. Register the callback on the window so Native can call it back
         window[callbackName] = function(response) {
-            console.log("Response received from Native:", response);
-            alert("Native Callback Success: " + JSON.stringify(response));
-            
-            // Clean up: remove the temporary function from window
-            delete window[callbackName];
+          alert("Native Callback Success: " + JSON.stringify(response));
+          delete window[callbackName];
         };
-
-        // 4. Send the message to Native with the data and the callback name
         const message = {
-            "action": "getUserData",
-            "params": { "id": 123 },
-            "callback": callbackName
+          "action": "getUserData",
+          "params": { "id": 123 },
+          "callback": callbackName
         };
-
         window.webkit.messageHandlers.nativeBridge.postMessage(message);
-        
-    } else {
-        alert("WebKit Message Handler 'nativeBridge' not found. This usually only works inside a native iOS App WebView.");
+      } else {
+        alert("WebKit Message Handler 'nativeBridge' not found.");
+      }
     }
-}
 
     // --- SETTINGS TEST scripts ---
-
-    // Test 2: autoplay check
     setTimeout(function() {
       var v = document.getElementById('autoTestVideo');
       var a = document.getElementById('autoTestAudio');
@@ -523,7 +495,6 @@ function handleCameraData(cameraData) {
       }
     }, 1500);
 
-    // Test 3: storage
     function writeTestStorage() {
       try {
         localStorage.setItem('ppwv_settings_test', 'hello_' + Date.now());
@@ -533,13 +504,13 @@ function handleCameraData(cameraData) {
         document.getElementById('storageTestStatus').textContent = 'Error: ' + e.message;
       }
     }
+
     function readTestStorage() {
       var ls = localStorage.getItem('ppwv_settings_test') || '(empty)';
       var ck = document.cookie || '(empty)';
       document.getElementById('storageTestStatus').textContent = 'localStorage: ' + ls + ' | cookie: ' + ck;
     }
 
-    // Test 4: PiP
     async function tryTestPiP() {
       try {
         var v = document.getElementById('pipTestVideo');
@@ -551,7 +522,6 @@ function handleCameraData(cameraData) {
       }
     }
 
-    // Test 6: auto window.open
     function triggerAutoWindowOpen() {
       document.getElementById('windowOpenTestStatus').textContent = 'Will try window.open in 2s (no user gesture)...';
       setTimeout(function() {
@@ -560,72 +530,43 @@ function handleCameraData(cameraData) {
       }, 2000);
     }
 
-    // Test 7: JS execution check
     (function() {
       var el = document.getElementById('jsTestResult');
       if (el) el.textContent = 'JS is running! ✅';
     })();
-
-    // --- END SETTINGS TEST scripts ---
-    
   </script>
 
   <script>
-        document.getElementById('downloadBtn').addEventListener('click', function () {
-        // URL of the image to be downloaded
-        const imageUrl = 'https://imgstatic.phonepe.com/images/lending-consumer/assets/798/403/myths-vs-facts.png';
-
-        // Use fetch to get the image data as a Blob
-        fetch(imageUrl)
-            .then(response => response.blob())
-            .then(blob => {
-                // Create a temporary URL for the Blob
-                const url = window.URL.createObjectURL(blob);
-
-                // Create a temporary anchor element
-                const anchor = document.createElement('a');
-                anchor.href = url;
-                anchor.download = 'downloaded-image.jpg'; // Filename for the downloaded image
-
-                // Append the anchor to the body
-                document.body.appendChild(anchor);
-
-                // Trigger the download by simulating a click
-                anchor.click();
-
-                // Remove the anchor from the document
-                document.body.removeChild(anchor);
-
-                // Revoke the Blob URL to free memory
-                window.URL.revokeObjectURL(url);
-            })
-            .catch(err => console.error('Error downloading image:', err));
-        });
+    document.getElementById('downloadBtn').addEventListener('click', function () {
+      const imageUrl = 'https://imgstatic.phonepe.com/images/lending-consumer/assets/798/403/myths-vs-facts.png';
+      fetch(imageUrl)
+        .then(response => response.blob())
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const anchor = document.createElement('a');
+          anchor.href = url;
+          anchor.download = 'downloaded-image.jpg';
+          document.body.appendChild(anchor);
+          anchor.click();
+          document.body.removeChild(anchor);
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(err => console.error('Error downloading image:', err));
+    });
 
     document.getElementById('downloadBtn1').addEventListener('click', function () {
-        // URL of the image to be downloaded
-        const imageUrl = 'https://mohsin-khan-phonepe.github.io/phonepe-test-site/test-image.jpg';
-        // Create a temporary anchor element
-                const anchor = document.createElement('a');
-                anchor.href = imageUrl;
-                anchor.download = 'downloaded-image.png'; // Filename for the downloaded image
-
-                // Append the anchor to the body
-                document.body.appendChild(anchor);
-
-                // Trigger the download by simulating a click
-                anchor.click();
-
-                // Remove the anchor from the document
-                document.body.removeChild(anchor);       
-        });
-    </script> 
+      const imageUrl = 'https://mohsin-khan-phonepe.github.io/phonepe-test-site/test-image.jpg';
+      const anchor = document.createElement('a');
+      anchor.href = imageUrl;
+      anchor.download = 'downloaded-image.png';
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+    });
+  </script>
   <script>
-     document.getElementById('errorHandling').addEventListener('click', function() {
-        window.open('https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/somerandompage', '_blank');
-       // setTimeout(function() {
-       //      window.open('https://mohsin-khan-phonepe.github.io/phonepe-test-site-1', '_blank');
-       //  }, 20000);
+    document.getElementById('errorHandling').addEventListener('click', function() {
+      window.open('https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/somerandompage', '_blank');
     });
   </script>
 </body>
