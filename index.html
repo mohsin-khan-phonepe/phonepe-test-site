@@ -102,6 +102,10 @@
   
   <button class="btn" onclick="callNativeWithCallback()">Call Webkit Bridge (iOS)</button>
 
+  <!-- Network Internal Bridge Test -->
+  <button class="btn" style="background-color: #5f259f;" onclick="callLAMFDashboardAPI()">LAMF Dashboard API</button>
+  <div class="status-box" id="lamfApiStatus" style="max-width: 600px; margin: 8px auto;">Click "LAMF Dashboard API" to test genericProcessRequest bridge.</div>
+
   <!-- Camera Button -->
 <input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
 <button onclick="document.getElementById('cameraInput').click()">Take Photo - HTML - 2</button>
@@ -265,50 +269,50 @@
 
     function openCamera() {
       sdk.startCamera().then((cameraData) => {
-    		handleCameraData(cameraData);
-    	}).catch((err) => {
-    		alert(err)
-    	})
+            handleCameraData(cameraData);
+        }).catch((err) => {
+            alert(err)
+        })
     }
 
     function openFileSelect() {
       sdk.selectFile('document', false).then((data) => {
-    		alert(data)
-    	}).catch((err) => {
-    		alert(err)
-    	})
+            alert(data)
+        }).catch((err) => {
+            alert(err)
+        })
     }
 
     function requestCameraAccess() {
       sdk.seekPermission([PhonePe.Constants.Permission.CAMERA]).then((data) => {
-    		alert(data)
-    	}).catch((err) => {
-    		alert(err)
-    	})
+            alert(data)
+        }).catch((err) => {
+            alert(err)
+        })
     }
 
     function requestAppDetails() {
       sdk.getAppDetails().then((data) => {
-    		alert(data)
-    	}).catch((err) => {
-    		alert(err)
-    	})
+            alert(data)
+        }).catch((err) => {
+            alert(err)
+        })
     }
 
      function seekLocationPermission() {
       sdk.seekPermission([PhonePe.Constants.Permission.LOCATION]).then((data) => {
-    		alert(data)
-    	}).catch((err) => {
-    		alert(err)
-    	})
+            alert(data)
+        }).catch((err) => {
+            alert(err)
+        })
     }
 
      function getLocation() {
       sdk.getCurrentLocation().then((data) => {
-    		alert(data)
-    	}).catch((err) => {
-    		alert(err)
-    	})
+            alert(data)
+        }).catch((err) => {
+            alert(err)
+        })
     }
 
     function openAndCloseWindow() {
@@ -361,6 +365,49 @@
 
     function closeApp() {
       sdk.closeApp();
+    }
+
+    // LAMF Dashboard API via Network Internal Bridge
+    function callLAMFDashboardAPI() {
+      var statusEl = document.getElementById('lamfApiStatus');
+      var callbackId = 'lamf_dashboard_' + Date.now();
+      statusEl.textContent = 'Calling LAMF Dashboard API (callbackId: ' + callbackId + ')...';
+
+      var payload = {
+        callbackId: callbackId,
+        subUrl: '/apis/freyr',
+        rawSubURLPath: '/v1/LAMF/dashboard',
+        httpMethod: 'POST',
+        bodyJson: { entityType: 'PERSON' }
+      };
+
+      // Store original callback if it exists
+      var originalCallback = (window.PhonePe && window.PhonePe.MessagingHandler)
+        ? window.PhonePe.MessagingHandler.callback
+        : null;
+
+      if (!window.PhonePe) window.PhonePe = {};
+      if (!window.PhonePe.MessagingHandler) window.PhonePe.MessagingHandler = {};
+
+      window.PhonePe.MessagingHandler.callback = function(cbId, resolved, response, error) {
+        if (cbId === callbackId) {
+          if (resolved === '1') {
+            statusEl.textContent = 'Success: ' + response;
+            alert('LAMF Dashboard Success:\n' + response);
+          } else {
+            statusEl.textContent = 'Failed: ' + error;
+            alert('LAMF Dashboard Failed:\n' + error);
+          }
+          // Restore original callback
+          if (originalCallback) {
+            window.PhonePe.MessagingHandler.callback = originalCallback;
+          }
+        } else if (originalCallback) {
+          originalCallback(cbId, resolved, response, error);
+        }
+      };
+
+      webkit.messageHandlers.genericProcessRequest.postMessage(payload);
     }
 
 function base64ToUint8Array(base64) {
