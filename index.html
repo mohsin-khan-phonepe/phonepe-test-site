@@ -102,6 +102,10 @@
   <button class="btn" style="background-color: #28a745;" onclick="callLAMFDashboardAPIExternal()">LAMF Dashboard API (External)</button>
   <div class="status-box" id="lamfExternalApiStatus" style="max-width: 600px; margin: 8px auto;">Click to test processRequest bridge (requires networkSupportMeta config in chimera).</div>
 
+  <!-- Analytics Bridge Test -->
+  <button class="btn" style="background-color: #fd7e14;" onclick="callLogMerchantEvent()">Log Merchant Event (Analytics)</button>
+  <div class="status-box" id="analyticsStatus" style="max-width: 600px; margin: 8px auto;">Click to test logMerchantEvent analytics bridge.</div>
+
   <input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
   <button onclick="document.getElementById('cameraInput').click()">Take Photo - HTML - 2</button>
 
@@ -402,6 +406,51 @@
       };
 
       webkit.messageHandlers.processRequest.postMessage(payload);
+    }
+
+    // Analytics Bridge (logMerchantEvent)
+    function callLogMerchantEvent() {
+      var statusEl = document.getElementById('analyticsStatus');
+      var callbackId = 'analytics_' + Date.now();
+      statusEl.textContent = 'Logging merchant event (callbackId: ' + callbackId + ')...';
+
+      var payload = {
+        callbackId: callbackId,
+        name: 'MERCHANT_BUTTON_CLICK',
+        app: 'LAMF',
+        category: 'webApp',
+        metadata: {
+          screen: 'dashboard',
+          action: 'tap',
+          timestamp: Date.now()
+        }
+      };
+
+      var originalCallback = (window.PhonePe && window.PhonePe.MessagingHandler)
+        ? window.PhonePe.MessagingHandler.callback
+        : null;
+
+      if (!window.PhonePe) window.PhonePe = {};
+      if (!window.PhonePe.MessagingHandler) window.PhonePe.MessagingHandler = {};
+
+      window.PhonePe.MessagingHandler.callback = function(cbId, resolved, response, error) {
+        if (cbId === callbackId) {
+          if (resolved === '1') {
+            statusEl.textContent = 'Event logged successfully.';
+            alert('Analytics event logged successfully.');
+          } else {
+            statusEl.textContent = 'Failed: ' + error;
+            alert('Analytics event failed:\n' + error);
+          }
+          if (originalCallback) {
+            window.PhonePe.MessagingHandler.callback = originalCallback;
+          }
+        } else if (originalCallback) {
+          originalCallback(cbId, resolved, response, error);
+        }
+      };
+
+      webkit.messageHandlers.logMerchantEvent.postMessage(payload);
     }
 
     function base64ToUint8Array(base64) {
