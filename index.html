@@ -106,6 +106,10 @@
   <button class="btn" style="background-color: #fd7e14;" onclick="callLogMerchantEvent()">Log Merchant Event (Analytics)</button>
   <div class="status-box" id="analyticsStatus" style="max-width: 600px; margin: 8px auto;">Click to test logMerchantEvent analytics bridge.</div>
 
+  <!-- Close Bridge Test -->
+  <button class="btn" style="background-color: #dc3545;" onclick="callWebviewClosed()">Close Webview (WEBVIEW_CLOSED)</button>
+  <div class="status-box" id="closeStatus" style="max-width: 600px; margin: 8px auto;">Click to test webviewClosed bridge (closes the webview).</div>
+
   <input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
   <button onclick="document.getElementById('cameraInput').click()">Take Photo - HTML - 2</button>
 
@@ -408,14 +412,10 @@
       webkit.messageHandlers.processRequest.postMessage(payload);
     }
 
-    // Analytics Bridge (logMerchantEvent)
+    // Analytics Bridge (logMerchantEvent) — one-way, no callback
     function callLogMerchantEvent() {
       var statusEl = document.getElementById('analyticsStatus');
-      var callbackId = 'analytics_' + Date.now();
-      statusEl.textContent = 'Logging merchant event (callbackId: ' + callbackId + ')...';
-
       var payload = {
-        callbackId: callbackId,
         name: 'MERCHANT_BUTTON_CLICK',
         app: 'LAMF',
         category: 'webApp',
@@ -425,32 +425,20 @@
           timestamp: Date.now()
         }
       };
+      statusEl.textContent = 'Logging merchant event: ' + JSON.stringify(payload);
+      webkit.messageHandlers.logMerchantEvent.postMessage(payload);
+    }
 
-      var originalCallback = (window.PhonePe && window.PhonePe.MessagingHandler)
-        ? window.PhonePe.MessagingHandler.callback
-        : null;
-
-      if (!window.PhonePe) window.PhonePe = {};
-      if (!window.PhonePe.MessagingHandler) window.PhonePe.MessagingHandler = {};
-
-      window.PhonePe.MessagingHandler.callback = function(cbId, resolved, response, error) {
-        if (cbId === callbackId) {
-          if (resolved === '1') {
-            statusEl.textContent = 'Event logged successfully.';
-            alert('Analytics event logged successfully.');
-          } else {
-            statusEl.textContent = 'Failed: ' + error;
-            alert('Analytics event failed:\n' + error);
-          }
-          if (originalCallback) {
-            window.PhonePe.MessagingHandler.callback = originalCallback;
-          }
-        } else if (originalCallback) {
-          originalCallback(cbId, resolved, response, error);
+    // Close Bridge (webviewClosed) — one-way, no callback
+    function callWebviewClosed() {
+      var statusEl = document.getElementById('closeStatus');
+      var payload = {
+        payload: {
+          refreshRequired: true
         }
       };
-
-      webkit.messageHandlers.logMerchantEvent.postMessage(payload);
+      statusEl.textContent = 'Requesting webview close with payload: ' + JSON.stringify(payload.payload);
+      webkit.messageHandlers.webviewClosed.postMessage(payload);
     }
 
     function base64ToUint8Array(base64) {
