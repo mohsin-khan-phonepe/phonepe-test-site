@@ -438,7 +438,7 @@
         }
       };
       statusEl.textContent = 'Requesting webview close with payload: ' + JSON.stringify(payload.payload);
-      webkit.messageHandlers.webviewClosed.postMessage(payload);
+      webkit.messageHandlers.closeWebview.postMessage(payload);
     }
 
     function base64ToUint8Array(base64) {
