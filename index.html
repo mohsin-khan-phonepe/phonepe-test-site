@@ -59,10 +59,10 @@
 <body>
   <h1>Redirect Buttons</h1>
   <p>Click on the buttons below to redirect:</p>
-  
+
   <button class="btn" onclick="createTestCookies()">Create Test Cookies</button>
   <button class="btn" onclick="showExistingCookies()">Show Existing Cookies</button>
-  
+
   <button class="btn" onclick="redirectTo('https://www.google.com/')">Google</button>
   <button class="btn" onclick="redirectTo('https://hdfc-loan-disbursed.phonepe.com?state=SUCCESS')">HDFC-Success</button>
   <button class="btn" onclick="redirectTo('https://hdfc-loan-disbursed.phonepe.com?state=REJECTED')">HDFC-Failure</button>
@@ -129,13 +129,13 @@
 
   <div class="settings-section">
     <h3>1. allowsInlineMediaPlayback</h3>
-    <p><b>true</b> → video plays inline. <b>false</b> → video opens fullscreen player.</p>
+    <p><b>true</b> &rarr; video plays inline. <b>false</b> &rarr; video opens fullscreen player.</p>
     <video src="https://www.w3schools.com/html/mov_bbb.mp4" playsinline controls width="100%"></video>
   </div>
 
   <div class="settings-section">
     <h3>2. mediaTypesRequiringUserActionForPlayback</h3>
-    <p><b>"all"</b> → neither auto-plays. <b>"none"</b> → both auto-play.</p>
+    <p><b>"all"</b> &rarr; neither auto-plays. <b>"none"</b> &rarr; both auto-play.</p>
     <p><b>Video (autoplay attempt):</b></p>
     <video id="autoTestVideo" src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay playsinline muted width="100%"></video>
     <p><b>Audio (autoplay attempt):</b></p>
@@ -145,50 +145,50 @@
 
   <div class="settings-section">
     <h3>3. dataStoragePolicy</h3>
-    <p><b>nonPersistent</b> → data lost after webview destroyed. <b>defaultPersistent</b> → data survives.</p>
+    <p><b>nonPersistent</b> &rarr; data lost after webview destroyed. <b>defaultPersistent</b> &rarr; data survives.</p>
     <button class="btn" onclick="writeTestStorage()">Write to localStorage &amp; Cookie</button>
     <button class="btn" onclick="readTestStorage()">Read Storage</button>
-    <div class="status-box" id="storageTestStatus">Click "Write" → close webview → reopen → click "Read".</div>
+    <div class="status-box" id="storageTestStatus">Click "Write" &rarr; close webview &rarr; reopen &rarr; click "Read".</div>
   </div>
 
   <div class="settings-section">
     <h3>4. allowsPictureInPictureMediaPlayback</h3>
-    <p><b>false</b> → PiP fails. <b>true</b> → PiP works.</p>
+    <p><b>false</b> &rarr; PiP fails. <b>true</b> &rarr; PiP works.</p>
     <video id="pipTestVideo" src="https://www.w3schools.com/html/mov_bbb.mp4" playsinline controls width="100%"></video>
     <br>
     <button class="btn" onclick="tryTestPiP()">Try PiP</button>
-    <div class="status-box" id="pipTestStatus">—</div>
+    <div class="status-box" id="pipTestStatus">&mdash;</div>
   </div>
 
   <div class="settings-section">
     <h3>5. dataDetectorTypes</h3>
     <p>With <b>["phoneNumber", "link"]</b> only phone &amp; URL below should be tappable (auto-linked by iOS).</p>
-    <p>📞 Phone (should link): +1-800-555-0199</p>
-    <p>🔗 URL (should link): https://example.com</p>
-    <p>📍 Address (should NOT link): 1 Infinite Loop, Cupertino, CA 95014</p>
-    <p>📅 Date (should NOT link): March 15, 2026 at 3:00 PM</p>
-    <p>✈️ Flight (should NOT link): AA 100</p>
+    <p>&#128222; Phone (should link): +1-800-555-0199</p>
+    <p>&#128279; URL (should link): https://example.com</p>
+    <p>&#128205; Address (should NOT link): 1 Infinite Loop, Cupertino, CA 95014</p>
+    <p>&#128197; Date (should NOT link): March 15, 2026 at 3:00 PM</p>
+    <p>&#9992;&#65039; Flight (should NOT link): AA 100</p>
   </div>
 
   <div class="settings-section">
     <h3>6. javaScriptCanOpenWindowsAutomatically</h3>
-    <p><b>true</b> → both user-gesture &amp; auto window.open work. <b>false</b> → auto is blocked.</p>
+    <p><b>true</b> &rarr; both user-gesture &amp; auto window.open work. <b>false</b> &rarr; auto is blocked.</p>
     <button class="btn" onclick="window.open('https://example.com', '_blank')">window.open (User Gesture)</button>
     <button class="btn" onclick="triggerAutoWindowOpen()">Auto window.open (2s delay, no gesture)</button>
-    <div class="status-box" id="windowOpenTestStatus">—</div>
+    <div class="status-box" id="windowOpenTestStatus">&mdash;</div>
   </div>
 
   <div class="settings-section">
     <h3>7. allowsContentJavaScript</h3>
-    <p><b>true</b> → "JS is running!" shown. <b>false</b> → "JavaScript is DISABLED" shown.</p>
+    <p><b>true</b> &rarr; "JS is running!" shown. <b>false</b> &rarr; "JavaScript is DISABLED" shown.</p>
     <div class="status-box" id="jsTestResult">
-      <noscript>JavaScript is DISABLED ❌</noscript>
+      <noscript>JavaScript is DISABLED &#10060;</noscript>
     </div>
   </div>
 
   <div class="settings-section">
     <h3>8. allowsBackForwardNavigationGestures</h3>
-    <p><b>true</b> → swipe from left edge goes back. <b>false</b> → swipe does nothing.</p>
+    <p><b>true</b> &rarr; swipe from left edge goes back. <b>false</b> &rarr; swipe does nothing.</p>
     <p>Click a link below, then swipe from the left edge to come back:</p>
     <a class="btn" href="https://example.com">example.com</a>
     <a class="btn" href="https://www.w3.org">w3.org</a>
@@ -197,7 +197,7 @@
 
   <div class="settings-section">
     <h3>9. isZoomDisabled</h3>
-    <p><b>false</b> → pinch-to-zoom works. <b>true</b> → pinch-to-zoom disabled.</p>
+    <p><b>false</b> &rarr; pinch-to-zoom works. <b>true</b> &rarr; zoom disabled.</p>
     <div class="small-zoom-text">
       This is very small text (8px). Try pinch-to-zoom to enlarge it.
       If isZoomDisabled is true, pinch gestures will have no effect because the SDK injects a viewport meta tag with user-scalable=no.
@@ -210,7 +210,7 @@
   <hr style="margin: 30px 0;">
   <h2>Hitesh Kumar Thakur Website</h2>
   <iframe src="https://hiteshkumarthakur.github.io/" style="width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 5px;"></iframe>
-  
+
   <script src="bundle.js"></script>
   <script>
     var sdk;
@@ -277,11 +277,55 @@
     }
 
     function requestAppDetails() {
-      sdk.getAppDetails().then((data) => {
-        alert(data)
-      }).catch((err) => {
-        alert(err)
-      })
+      if (requestAppDetails.pending) return;
+
+      if (!window.JSAppDetails ||
+          typeof window.JSAppDetails.getAppDetails !== 'function') {
+        alert('JSAppDetails bridge is unavailable.');
+        return;
+      }
+
+      window.PhonePe = window.PhonePe || {};
+      window.PhonePe.MessagingHandler = window.PhonePe.MessagingHandler || {};
+
+      const handler = window.PhonePe.MessagingHandler;
+      const originalCallback = handler.callback;
+      const callbackId = 'app-details-' + Date.now();
+      requestAppDetails.pending = true;
+
+      function finish(message) {
+        clearTimeout(timeout);
+        requestAppDetails.pending = false;
+        if (handler.callback === receiveAppDetails) {
+          handler.callback = originalCallback;
+        }
+        alert(message);
+      }
+
+      function receiveAppDetails(cbId, resolved, response, error) {
+        if (cbId !== callbackId) {
+          if (typeof originalCallback === 'function') {
+            return originalCallback.apply(this, arguments);
+          }
+          return;
+        }
+
+        finish(resolved === '1'
+          ? 'App Details:\n' + response
+          : 'App Details failed:\n' + error);
+      }
+
+      const timeout = setTimeout(function() {
+        finish('App Details request timed out.');
+      }, 10000);
+
+      handler.callback = receiveAppDetails;
+
+      try {
+        JSAppDetails.getAppDetails({ callbackId: callbackId });
+      } catch (error) {
+        finish('App Details failed: ' + error.message);
+      }
     }
 
     function seekLocationPermission() {
@@ -412,7 +456,7 @@
       webkit.messageHandlers.processRequest.postMessage(payload);
     }
 
-    // Analytics Bridge (logMerchantEvent) — one-way, no callback
+    // Analytics Bridge (logMerchantEvent) - one-way, no callback
     function callLogMerchantEvent() {
       var statusEl = document.getElementById('analyticsStatus');
       var payload = {
@@ -432,7 +476,7 @@
       webkit.messageHandlers.logMerchantEvent.postMessage(payload);
     }
 
-    // Close Bridge (webviewClosed) — one-way, no callback
+    // Close Bridge (webviewClosed) - one-way, no callback
     function callWebviewClosed() {
       var statusEl = document.getElementById('closeStatus');
       var payload = {
@@ -531,7 +575,7 @@
       if (v && a && s) {
         var vPlaying = v && !v.paused;
         var aPlaying = a && !a.paused;
-        s.textContent = 'Video autoplay: ' + (vPlaying ? 'YES ✅' : 'NO ❌') + ' | Audio autoplay: ' + (aPlaying ? 'YES ✅' : 'NO ❌');
+        s.textContent = 'Video autoplay: ' + (vPlaying ? 'YES \u2705' : 'NO \u274c') + ' | Audio autoplay: ' + (aPlaying ? 'YES \u2705' : 'NO \u274c');
       }
     }, 1500);
 
@@ -556,9 +600,9 @@
         var v = document.getElementById('pipTestVideo');
         await v.play();
         await v.requestPictureInPicture();
-        document.getElementById('pipTestStatus').textContent = 'PiP ACTIVE ✅';
+        document.getElementById('pipTestStatus').textContent = 'PiP ACTIVE \u2705';
       } catch(e) {
-        document.getElementById('pipTestStatus').textContent = 'PiP FAILED ❌: ' + e.message;
+        document.getElementById('pipTestStatus').textContent = 'PiP FAILED \u274c: ' + e.message;
       }
     }
 
@@ -566,13 +610,13 @@
       document.getElementById('windowOpenTestStatus').textContent = 'Will try window.open in 2s (no user gesture)...';
       setTimeout(function() {
         var w = window.open('https://example.com', '_blank');
-        document.getElementById('windowOpenTestStatus').textContent = w ? 'Auto window.open: ALLOWED ✅' : 'Auto window.open: BLOCKED ❌';
+        document.getElementById('windowOpenTestStatus').textContent = w ? 'Auto window.open: ALLOWED \u2705' : 'Auto window.open: BLOCKED \u274c';
       }, 2000);
     }
 
     (function() {
       var el = document.getElementById('jsTestResult');
-      if (el) el.textContent = 'JS is running! ✅';
+      if (el) el.textContent = 'JS is running! \u2705';
     })();
   </script>
 
