@@ -79,11 +79,11 @@
   <h2>Testing Dropdown</h2>
 
   <select id="dropdown">
-      <option value="item1">Item 0</option>
-      <option value="item2">Item 2</option>
-      <option value="item3">Item 3</option>
-      <option value="item4">Item 4</option>
-      <option value="item5">Item 5</option>
+    <option value="item1">Item 0</option>
+    <option value="item2">Item 2</option>
+    <option value="item3">Item 3</option>
+    <option value="item4">Item 4</option>
+    <option value="item5">Item 5</option>
   </select>
 
   <button class="btn" onclick="openCamera()">Open Camera</button>
@@ -97,6 +97,9 @@
   <!-- Network Internal Bridge Test -->
   <button class="btn" style="background-color: #5f259f;" onclick="callLAMFDashboardAPI()">LAMF Dashboard API (Internal)</button>
   <div class="status-box" id="lamfApiStatus" style="max-width: 600px; margin: 8px auto;">Click to test genericProcessRequest bridge.</div>
+
+  <button class="btn" style="background-color: #00838f;" onclick="callLAMFDashboardAPIInternalNetwork()">LAMF Dashboard API (processInternalNetworkRequest)</button>
+  <div class="status-box" id="lamfInternalNetworkApiStatus" style="max-width: 600px; margin: 8px auto;">Click to test processInternalNetworkRequest bridge.</div>
 
   <!-- Network External Bridge Test -->
   <button class="btn" style="background-color: #28a745;" onclick="callLAMFDashboardAPIExternal()">LAMF Dashboard API (External)</button>
@@ -114,7 +117,7 @@
   <button onclick="document.getElementById('cameraInput').click()">Take Photo - HTML - 2</button>
 
   <input type="file" accept="image/*" id="galleryInput" style="display: none;">
-  <button onclick="document.getElementById('galleryInput').click()">Choose from Gallery  - HTML</button>
+  <button onclick="document.getElementById('galleryInput').click()">Choose from Gallery - HTML</button>
 
   <input type="text" id="urlInput" placeholder="Enter URL">
   <button onclick="navigate()">Go to Entered URL</button>
@@ -215,37 +218,37 @@
   <script>
     var sdk;
     PhonePe.PhonePe.build(PhonePe.Constants.Species.web)
-        .then(ppSdk => {
-            sdk = ppSdk;
-            alert('PhonePe SDK initialized successfully');
-        })
-        .catch(error => {
-            alert(error);
-        });
+      .then(ppSdk => {
+        sdk = ppSdk;
+        alert('PhonePe SDK initialized successfully');
+      })
+      .catch(error => {
+        alert(error);
+      });
   </script>
   <script>
     setTimeout(function() {
-        showExistingCookies();
+      showExistingCookies();
     }, 5000);
 
     function createTestCookies() {
-        document.cookie = "testCookie1=value1; path=/; max-age=3600";
-        document.cookie = "testCookie2=value2; path=/; max-age=3600";
-        document.cookie = "sessionCookie=sessionValue; path=/";
-        document.cookie = "userPreference=darkMode; path=/; max-age=86400";
-        document.cookie = "lastVisit=" + new Date().toISOString() + "; path=/; max-age=86400";
-        alert('Test cookies created successfully!');
+      document.cookie = "testCookie1=value1; path=/; max-age=3600";
+      document.cookie = "testCookie2=value2; path=/; max-age=3600";
+      document.cookie = "sessionCookie=sessionValue; path=/";
+      document.cookie = "userPreference=darkMode; path=/; max-age=86400";
+      document.cookie = "lastVisit=" + new Date().toISOString() + "; path=/; max-age=86400";
+      alert('Test cookies created successfully!');
     }
 
     function showExistingCookies() {
-        const cookies = document.cookie;
-        if (cookies) {
-            const cookieArray = cookies.split(';').map(cookie => cookie.trim());
-            const formattedCookies = cookieArray.join('\n');
-            alert('Existing Cookies:\n\n' + formattedCookies);
-        } else {
-            alert('No cookies found!');
-        }
+      const cookies = document.cookie;
+      if (cookies) {
+        const cookieArray = cookies.split(';').map(cookie => cookie.trim());
+        const formattedCookies = cookieArray.join('\n');
+        alert('Existing Cookies:\n\n' + formattedCookies);
+      } else {
+        alert('No cookies found!');
+      }
     }
 
     function redirectTo(url) {
@@ -256,24 +259,24 @@
       sdk.startCamera().then((cameraData) => {
         handleCameraData(cameraData);
       }).catch((err) => {
-        alert(err)
-      })
+        alert(err);
+      });
     }
 
     function openFileSelect() {
       sdk.selectFile('document', false).then((data) => {
-        alert(data)
+        alert(data);
       }).catch((err) => {
-        alert(err)
-      })
+        alert(err);
+      });
     }
 
     function requestCameraAccess() {
       sdk.seekPermission([PhonePe.Constants.Permission.CAMERA]).then((data) => {
-        alert(data)
+        alert(data);
       }).catch((err) => {
-        alert(err)
-      })
+        alert(err);
+      });
     }
 
     function requestAppDetails() {
@@ -330,22 +333,26 @@
 
     function seekLocationPermission() {
       sdk.seekPermission([PhonePe.Constants.Permission.LOCATION]).then((data) => {
-        alert(data)
+        alert(data);
       }).catch((err) => {
-        alert(err)
-      })
+        alert(err);
+      });
     }
 
     function getLocation() {
       sdk.getCurrentLocation().then((data) => {
-        alert(data)
+        alert(data);
       }).catch((err) => {
-        alert(err)
-      })
+        alert(err);
+      });
     }
 
     function openAndCloseWindow() {
-      const newWindow = window.open('https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/', '_blank', 'width=500,height=500');
+      const newWindow = window.open(
+        'https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/',
+        '_blank',
+        'width=500,height=500'
+      );
       setTimeout(() => {
         if (newWindow) { newWindow.close(); }
       }, 5000);
@@ -357,7 +364,11 @@
 
     function openAndCloseWindow1() {
       setTimeout(() => {
-        const newWindow = window.open('https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/', '_blank', 'width=500,height=500');
+        const newWindow = window.open(
+          'https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/',
+          '_blank',
+          'width=500,height=500'
+        );
         setTimeout(() => {
           if (newWindow) { newWindow.close(); }
         }, 5000);
@@ -366,7 +377,10 @@
 
     function openAndCloseWindow2() {
       setTimeout(() => {
-        const newWindow = window.open('https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/', '_blank');
+        const newWindow = window.open(
+          'https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/',
+          '_blank'
+        );
         setTimeout(() => {
           if (newWindow) { newWindow.close(); }
         }, 5000);
@@ -416,6 +430,85 @@
       };
 
       webkit.messageHandlers.genericProcessRequest.postMessage(payload);
+    }
+
+    function callLAMFDashboardAPIInternalNetwork() {
+      var statusEl = document.getElementById('lamfInternalNetworkApiStatus');
+
+      if (callLAMFDashboardAPIInternalNetwork.pending) {
+        return;
+      }
+
+      var bridge = window.webkit &&
+        window.webkit.messageHandlers &&
+        window.webkit.messageHandlers.processInternalNetworkRequest;
+
+      if (!bridge || typeof bridge.postMessage !== 'function') {
+        statusEl.textContent = 'processInternalNetworkRequest bridge is unavailable.';
+        alert(statusEl.textContent);
+        return;
+      }
+
+      var callbackId = 'lamf_internal_network_' + Date.now();
+      var payload = {
+        callbackId: callbackId,
+        subUrl: '/apis/freyr/v1/LAMF/dashboard',
+        httpMethod: 'POST',
+        bodyJSON: { entityType: 'PERSON' }
+      };
+
+      window.PhonePe = window.PhonePe || {};
+      window.PhonePe.MessagingHandler = window.PhonePe.MessagingHandler || {};
+
+      var handler = window.PhonePe.MessagingHandler;
+      var originalCallback = handler.callback;
+      var finished = false;
+
+      callLAMFDashboardAPIInternalNetwork.pending = true;
+      statusEl.textContent =
+        'Calling LAMF Dashboard API - processInternalNetworkRequest ' +
+        '(callbackId: ' + callbackId + ')...';
+
+      function finish(message) {
+        if (finished) return;
+        finished = true;
+        clearTimeout(timeout);
+        callLAMFDashboardAPIInternalNetwork.pending = false;
+
+        if (handler.callback === receiveInternalNetworkResponse) {
+          handler.callback = originalCallback;
+        }
+
+        statusEl.textContent = message;
+        alert(message);
+      }
+
+      function receiveInternalNetworkResponse(cbId, resolved, response, error) {
+        if (cbId !== callbackId) {
+          if (typeof originalCallback === 'function') {
+            return originalCallback.apply(this, arguments);
+          }
+          return;
+        }
+
+        if (String(resolved) === '1') {
+          finish('LAMF Dashboard (processInternalNetworkRequest) Success:\n' + response);
+        } else {
+          finish('LAMF Dashboard (processInternalNetworkRequest) Failed:\n' + error);
+        }
+      }
+
+      var timeout = setTimeout(function() {
+        finish('LAMF Dashboard (processInternalNetworkRequest) timed out.');
+      }, 30000);
+
+      handler.callback = receiveInternalNetworkResponse;
+
+      try {
+        bridge.postMessage(payload);
+      } catch (error) {
+        finish('LAMF Dashboard (processInternalNetworkRequest) Failed:\n' + error.message);
+      }
     }
 
     // LAMF Dashboard API via Network External Bridge (processRequest)
@@ -575,7 +668,8 @@
       if (v && a && s) {
         var vPlaying = v && !v.paused;
         var aPlaying = a && !a.paused;
-        s.textContent = 'Video autoplay: ' + (vPlaying ? 'YES \u2705' : 'NO \u274c') + ' | Audio autoplay: ' + (aPlaying ? 'YES \u2705' : 'NO \u274c');
+        s.textContent = 'Video autoplay: ' + (vPlaying ? 'YES \u2705' : 'NO \u274c') +
+          ' | Audio autoplay: ' + (aPlaying ? 'YES \u2705' : 'NO \u274c');
       }
     }, 1500);
 
@@ -583,8 +677,9 @@
       try {
         localStorage.setItem('ppwv_settings_test', 'hello_' + Date.now());
         document.cookie = 'ppwv_settings_cookie=test_' + Date.now() + '; path=/';
-        document.getElementById('storageTestStatus').textContent = 'Written! Now destroy & re-create webview, then click Read.';
-      } catch(e) {
+        document.getElementById('storageTestStatus').textContent =
+          'Written! Now destroy & re-create webview, then click Read.';
+      } catch (e) {
         document.getElementById('storageTestStatus').textContent = 'Error: ' + e.message;
       }
     }
@@ -592,7 +687,8 @@
     function readTestStorage() {
       var ls = localStorage.getItem('ppwv_settings_test') || '(empty)';
       var ck = document.cookie || '(empty)';
-      document.getElementById('storageTestStatus').textContent = 'localStorage: ' + ls + ' | cookie: ' + ck;
+      document.getElementById('storageTestStatus').textContent =
+        'localStorage: ' + ls + ' | cookie: ' + ck;
     }
 
     async function tryTestPiP() {
@@ -601,16 +697,18 @@
         await v.play();
         await v.requestPictureInPicture();
         document.getElementById('pipTestStatus').textContent = 'PiP ACTIVE \u2705';
-      } catch(e) {
+      } catch (e) {
         document.getElementById('pipTestStatus').textContent = 'PiP FAILED \u274c: ' + e.message;
       }
     }
 
     function triggerAutoWindowOpen() {
-      document.getElementById('windowOpenTestStatus').textContent = 'Will try window.open in 2s (no user gesture)...';
+      document.getElementById('windowOpenTestStatus').textContent =
+        'Will try window.open in 2s (no user gesture)...';
       setTimeout(function() {
         var w = window.open('https://example.com', '_blank');
-        document.getElementById('windowOpenTestStatus').textContent = w ? 'Auto window.open: ALLOWED \u2705' : 'Auto window.open: BLOCKED \u274c';
+        document.getElementById('windowOpenTestStatus').textContent =
+          w ? 'Auto window.open: ALLOWED \u2705' : 'Auto window.open: BLOCKED \u274c';
       }, 2000);
     }
 
@@ -621,7 +719,7 @@
   </script>
 
   <script>
-    document.getElementById('downloadBtn').addEventListener('click', function () {
+    document.getElementById('downloadBtn').addEventListener('click', function() {
       const imageUrl = 'https://imgstatic.phonepe.com/images/lending-consumer/assets/798/403/myths-vs-facts.png';
       fetch(imageUrl)
         .then(response => response.blob())
@@ -638,7 +736,7 @@
         .catch(err => console.error('Error downloading image:', err));
     });
 
-    document.getElementById('downloadBtn1').addEventListener('click', function () {
+    document.getElementById('downloadBtn1').addEventListener('click', function() {
       const imageUrl = 'https://mohsin-khan-phonepe.github.io/phonepe-test-site/test-image.jpg';
       const anchor = document.createElement('a');
       anchor.href = imageUrl;
@@ -650,7 +748,10 @@
   </script>
   <script>
     document.getElementById('errorHandling').addEventListener('click', function() {
-      window.open('https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/somerandompage', '_blank');
+      window.open(
+        'https://mohsin-khan-phonepe.github.io/phonepe-test-site-1/somerandompage',
+        '_blank'
+      );
     });
   </script>
 </body>
